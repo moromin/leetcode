@@ -7,26 +7,16 @@
 from collections import deque
 
 class Solution:
+    pre = None
+    
     def flatten(self, root: Optional[TreeNode]) -> None:
         if root is None:
             return
         
-        q = deque()
+        self.flatten(root.right)
+        self.flatten(root.left)
         
-        def traverse(node):
-            if node is None:
-                return
-            
-            q.append(node)
-            traverse(node.left)
-            traverse(node.right)
-
-        traverse(root)
-        
-        q.popleft()
-        while q:
-            node = q.popleft()
-            root.right = node
-            root.left = None
-            root = root.right
+        root.right = self.pre
+        root.left = None
+        self.pre = root
             
