@@ -7,14 +7,17 @@ class Solution {
         int m = matrix.length;
         int n = matrix[0].length;
         int result = 0;
-
-        int[][] dp = new int[m+1][n+1];
         
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= n; j++) {
-                if (matrix[i-1][j-1] == '1') {
-                    dp[i][j] = Math.min(Math.min(dp[i][j-1], dp[i-1][j-1]), dp[i-1][j]) + 1;
-                    result = Math.max(dp[i][j], result);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 0 || j == 0){
+                    if (matrix[i][j] == '1' && result == 0) {
+                        result = 1;   
+                    }
+                } else if (matrix[i][j] == '1') {
+                    int cur = Math.min(Math.min(matrix[i][j-1], matrix[i-1][j-1]), matrix[i-1][j]) - '0' + 1;
+                    matrix[i][j] = (char)(cur + '0');
+                    result = Math.max(cur, result);
                 }
             }
         }
