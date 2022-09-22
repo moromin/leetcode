@@ -1,4 +1,7 @@
 class Solution {
+    public String reverse(String s) {
+        return new StringBuilder(s).reverse().toString();
+    }
     
     public String reverseWords(String s) {
         String[] strs = s.split(" ");
@@ -6,7 +9,7 @@ class Solution {
         for (int i = 0; i < strs.length; i++) {
             if (i != 0)
                 res.append(" ");
-            res.append(new StringBuilder(strs[i]).reverse().toString());
+            res.append(reverse(strs[i]));
         }
         return res.toString();
     }
