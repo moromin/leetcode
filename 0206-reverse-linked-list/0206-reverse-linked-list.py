@@ -9,9 +9,9 @@ class Solution:
         def recursive(node, prev):
             if not node:
                 return prev
-            res = recursive(node.next, node)
+            next = node.next
             node.next = prev
-            return res
+            return recursive(next, node)
         
         return recursive(head, None)
         
