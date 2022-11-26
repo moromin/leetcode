@@ -4,14 +4,11 @@ class Solution:
         intervals.sort()
         res = []
         i = 1
-        preStart, preEnd = intervals[0]
         res.append(intervals[0])
         while i < N:
-            if intervals[i][0] <= preEnd:
-                preEnd = max(intervals[i][1], preEnd)
-                res[-1][1] = preEnd
+            if intervals[i][0] <= res[-1][1]:
+                res[-1][1] = max(intervals[i][1], res[-1][1])
             else:
                 res.append(intervals[i])
-                preEnd = intervals[i][1]
             i += 1
         return res
