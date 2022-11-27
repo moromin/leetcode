@@ -1,12 +1,14 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        n, m = len(s1), len(s2)
-        c1 = Counter(s1)
-        c2 = Counter([])
-        for i in range(m):
-            c2.subtract(Counter({s2[i]:-1}))
-            if i >= n:
-                c2.subtract(Counter({s2[i - n]:1}))
-            if c1 == c2:
+        window = [0 for _ in range(26)]
+        word = [0 for _ in range(26)]
+        for c in s1:
+            window[ord(c) - ord('a')] += 1
+
+        for i in range(len(s2)):
+            word[ord(s2[i]) - ord('a')] += 1
+            if i >= len(s1):
+                word[ord(s2[i - len(s1)]) - ord('a')] -= 1
+            if word == window:
                 return True
         return False
