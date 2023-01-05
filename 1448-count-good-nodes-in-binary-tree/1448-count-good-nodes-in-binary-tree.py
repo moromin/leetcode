@@ -6,13 +6,12 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        
-        def traverse(node, pre):
+        def traverse(node, minVal):
             if not node:
                 return 0
-            
-            pre = max(node.val, pre)
-            res = traverse(node.left, pre) + traverse(node.right, pre)
-            return res if pre > node.val else res + 1
+            goodVal = 1 if node.val >= minVal else 0
+            minVal = max(minVal, node.val)
+            return goodVal + traverse(node.left, minVal) + traverse(node.right, minVal)
         
-        return traverse(root, -math.inf) 
+        return traverse(root, root.val)
+        
