@@ -1,9 +1,9 @@
 class Solution:
     def findSubsequences(self, nums: List[int]) -> List[List[int]]:
-        res = []
+        res = set()
         def recursive(tmp, nl):
-            if len(tmp) >= 2 and tmp not in res:
-                res.append(tmp.copy())
+            if len(tmp) >= 2:
+                res.add(tuple(tmp))
             # print(tmp, nl, res)
             if not nl:
                 return
@@ -13,5 +13,5 @@ class Solution:
                     recursive(tmp, nl[i+1:])
                     tmp.pop()
         recursive([], nums)
-        return res
+        return list(res)
                     
