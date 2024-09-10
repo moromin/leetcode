@@ -7,7 +7,6 @@ class Node:
 """
 
 from typing import Optional
-from collections import defaultdict
 
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
