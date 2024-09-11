@@ -1,24 +1,28 @@
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        N = len(intervals)
-        if N == 0:
+        if len(intervals) == 0:
             return [newInterval]
         
+        newStart, newEnd = newInterval[0], newInterval[1]
+        inserted = False
+        
         res = []
-        i = 0
-        while i < N and intervals[i][1] < newInterval[0]:
-            res.append(intervals[i])
-            i += 1
+        for i in range(len(intervals)):
+            start, end = intervals[i][0], intervals[i][1]
             
-        newStart, newEnd = newInterval[0], newInterval[1] 
-        while i < N and intervals[i][0] <= newInterval[1]:
-            newStart = min(newStart, intervals[i][0])
-            newEnd = max(newEnd, intervals[i][1])
-            i += 1    
-        res.append([newStart, newEnd])
-
-        while i < N:
-            res.append(intervals[i])
-            i += 1
+            if newEnd < start and not inserted:
+                res.append([newStart, newEnd])
+                inserted = True
+            
+            if start <= newStart <= end:
+                newStart = start
+            if start <= newEnd <= end:
+                newEnd = end
+            
+            if not newStart <= start <= end <= newEnd: 
+                res.append(intervals[i])
+        
+        if not inserted:
+            res.append([newStart, newEnd])
         
         return res
