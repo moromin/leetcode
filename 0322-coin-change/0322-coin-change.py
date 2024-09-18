@@ -1,13 +1,11 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        dp = [math.inf for _ in range(amount + 1)]
-        dp[0] = 0
-        
-        for coin in coins:
-            for i in range(1, amount + 1):
+        MAX = 10000000
+        res = [MAX for _ in range(amount + 1)]
+        res[0] = 0
+        for i in range(1, amount + 1):
+            for coin in coins:
                 if i - coin >= 0:
-                    dp[i] = min(dp[i], dp[i - coin] + 1)
+                    res[i] = min(res[i], res[i - coin] + 1)
         
-        return dp[amount] if dp[amount] != math.inf else -1
-        
-        
+        return -1 if res[amount] == MAX else res[amount]
