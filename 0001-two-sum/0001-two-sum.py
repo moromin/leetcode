@@ -1,16 +1,18 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        ns = [(nums[i], i) for i in range(len(nums))]
-        ns.sort()
-        
-        start, end = 0, len(ns) - 1
-        
+        l = len(nums)
+        indexedNums = [(nums[i], i) for i in range(l)]
+        indexedNums.sort()
+
+        left, right = 0, l - 1
         while True:
-            if ns[start][0] + ns[end][0] == target:
-                return [ns[start][1], ns[end][1]]
-            elif ns[start][0] + ns[end][0] < target:
-                start += 1
+            n1, i = indexedNums[left]
+            n2, j = indexedNums[right]
+            
+            if n1 + n2 == target:
+                return [i, j]
+            elif n1 + n2 < target:
+                left += 1
             else:
-                end -= 1
+                right -= 1
         
-        return [0, 1]
